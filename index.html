@@ -3,174 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Quản Lý CSKH 2026 | HUYMINH</title>
+    <title>Hướng Dẫn Sử Dụng | QuanLyCSKH 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg: #050505;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --accent: #ff007a;
-            --text: #ffffff;
+            --primary-color: #0984e3;
+            --secondary-color: #00cec9;
+            --dark-color: #2d3436;
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+            --admin-color: #6c5ce7;
+            --staff-color: #e17055;
+            --accent: #fd79a8;
         }
 
         body {
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: var(--bg);
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 122, 0.1) 0%, transparent 40%);
-            color: var(--text);
-            min-height: 100vh;
+            background-color: var(--light-bg);
+            color: var(--dark-color);
+            line-height: 1.8;
+            overflow-x: hidden;
         }
 
-        /* Hiệu ứng Header cực đại */
-        .hero {
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* Header có hiệu ứng màu gradient chuyển động cực ảo */
+        header {
+            background: linear-gradient(-45deg, var(--primary-color), var(--secondary-color), var(--admin-color), var(--accent));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            padding: 80px 20px;
             text-align: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0), var(--bg));
-            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            margin: 0;
-            background: linear-gradient(to right, var(--primary), #fff, var(--accent));
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header h1 { margin: 0; font-size: 3em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; text-shadow: 2px 2px 10px rgba(0,0,0,0.2); }
+        header p { opacity: 0.95; font-size: 1.2em; margin-top: 15px; font-weight: 300; }
+
+        .container { max-width: 1050px; margin: -50px auto 50px; padding: 0 20px; position: relative; z-index: 10; }
+
+        /* Hiệu ứng nổi bọt (Fade In Up) cho các khối */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Thẻ thông tin phần mềm */
+        .info-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            animation: fadeInUp 0.8s ease forwards;
+            border-left: 8px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        .info-card:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .info-text h2 { color: var(--primary-color); margin-top: 0; font-size: 1.8em; }
+
+        .highlight-text {
+            display: inline-block;
+            background: linear-gradient(120deg, var(--primary-color), var(--admin-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            filter: drop-shadow(0 0 20px rgba(0,210,255,0.5));
-        }
-
-        .author-tag {
-            background: rgba(255,255,255,0.1);
-            padding: 5px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-top: 20px;
             font-weight: bold;
-            color: var(--primary);
+            font-size: 1.2em;
         }
 
-        .container { max-width: 1100px; margin: -50px auto 100px; padding: 0 20px; }
-
-        /* Card thiết kế dạng kính mờ */
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            padding: 40px;
-            margin-bottom: 30px;
-            transition: 0.4s;
+        /* Phần Quyền Hạn */
+        .roles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            margin-bottom: 60px;
+            animation: fadeInUp 1s ease forwards;
         }
-        .glass-card:hover { border-color: var(--primary); transform: translateY(-5px); }
 
-        .section-title {
-            font-size: 1.8rem;
+        .role-box {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .role-box:hover { transform: translateY(-15px); box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+
+        .role-header {
+            padding: 25px;
+            color: white;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .admin-head { background: linear-gradient(135deg, var(--admin-color), #a29bfe); }
+        .staff-head { background: linear-gradient(135deg, var(--staff-color), #fab1a0); }
+
+        .role-content { padding: 30px; }
+        .role-content ul { list-style: none; padding: 0; }
+        .role-content li { 
+            padding: 12px 0; 
+            border-bottom: 1px dashed #dfe6e9;
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            color: var(--primary);
+            gap: 12px;
+            transition: 0.3s;
         }
+        .role-content li:hover { padding-left: 10px; color: var(--primary-color); }
+        .role-content li:last-child { border-bottom: none; }
+        .role-content li i { font-size: 1.2em; }
+        .role-content li i.fa-check { color: #00b894; }
+        .role-content li i.fa-xmark { color: #d63031; }
+        .role-content li i.fa-lock { color: #fdcb6e; }
 
-        /* Phân quyền thiết kế theo dạng Tab cao cấp */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        /* Tính năng nổi bật */
+        .features { text-align: center; margin-top: 50px; animation: fadeInUp 1.2s ease forwards; }
+        .features h2 { font-size: 2em; color: var(--dark-color); margin-bottom: 40px; }
         
-        .role-card {
-            padding: 30px;
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .feature-item {
+            background: white;
+            padding: 40px 20px;
             border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
-        .admin-style { background: linear-gradient(135deg, rgba(58, 123, 213, 0.2), rgba(0, 210, 255, 0.1)); border-left: 4px solid var(--primary); }
-        .staff-style { background: linear-gradient(135deg, rgba(255, 0, 122, 0.1), rgba(255, 255, 255, 0.05)); border-left: 4px solid var(--accent); }
-
-        .role-card h3 { font-size: 1.5rem; margin-top: 0; }
-        .role-card ul { padding-left: 20px; }
-        .role-card li { margin-bottom: 12px; opacity: 0.9; }
-
-        /* Badge trạng thái */
-        .badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-            background: var(--accent);
+        /* Hiệu ứng trượt màu khi hover vào tính năng */
+        .feature-item::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 0;
+            background: linear-gradient(135deg, rgba(9, 132, 227, 0.1), rgba(0, 206, 201, 0.1));
+            transition: all 0.4s ease; z-index: -1;
+        }
+        .feature-item:hover::before { height: 100%; }
+        .feature-item:hover { transform: translateY(-10px); }
+        
+        .feature-item i { 
+            font-size: 3em; 
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px; 
         }
 
-        footer { text-align: center; padding: 50px; opacity: 0.5; border-top: 1px solid rgba(255,255,255,0.1); }
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--dark-color);
+            color: white;
+            margin-top: 80px;
+            font-weight: 300;
+        }
+        .dev-badge {
+            display: inline-block; background: var(--accent); color: white;
+            padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9em;
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.4);
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <h1>QUẢN LÝ CSKH PRO</h1>
-    <div class="author-tag">PHÁT TRIỂN BỞI HUYMINH • 2026 EDITION</div>
-    <p style="margin-top: 15px; letter-spacing: 2px;">GIẢI PHÁP CÔNG NGHỆ CHĂM SÓC KHÁCH HÀNG TOÀN DIỆN</p>
-</div>
+<header>
+    <h1><i class="fa-solid fa-headset"></i> QuanLyCSKH 2026</h1>
+    <p>Hệ thống chăm sóc khách hàng toàn diện & đẳng cấp</p>
+</header>
 
 <div class="container">
-    <div class="glass-card">
-        <div class="section-title"><i class="fas fa-rocket"></i> TỔNG QUAN HỆ THỐNG</div>
-        <p>Hệ thống được thiết kế trên nền tảng .NET hiện đại, tích hợp trí tuệ nhân tạo hỗ trợ phân loại khách hàng và báo cáo thông minh. Phiên bản 2026 tập trung tối đa vào trải nghiệm người dùng và độ chính xác của dữ liệu.</p>
-    </div>
-
-    <div class="grid">
-        <div class="glass-card role-card admin-style">
-            <h3><i class="fas fa-user-shield"></i> QUẢN TRỊ VIÊN</h3>
-            <p><i>Quyền hạn tối cao trên toàn hệ thống:</i></p>
-            <ul>
-                <li>Kiểm soát danh mục <strong>Nhân viên</strong> và <strong>Phân công</strong>.</li>
-                <li>Quản lý toàn bộ <strong>Khách hàng, Sản phẩm, Hóa đơn</strong>.</li>
-                <li>Phân tích báo cáo <strong>Sinh nhật, Hiệu quả, Năng suất</strong> chuyên sâu.</li>
-                <li>Thực hiện các lệnh Nhập/Xuất dữ liệu hệ thống.</li>
-            </ul>
-        </div>
-        <div class="glass-card role-card staff-style">
-            <h3><i class="fas fa-user-tie"></i> NHÂN VIÊN</h3>
-            <p><i>Thực thi nghiệp vụ chăm sóc khách hàng:</i></p>
-            <ul>
-                <li>Sử dụng các chức năng: <strong>Thêm, Xóa, Sửa, Tìm kiếm</strong>.</li>
-                <li>Tương tác dữ liệu Khách hàng, Sản phẩm, Hóa đơn.</li>
-                <li>Theo dõi báo cáo thống kê kết quả làm việc cá nhân.</li>
-                <li><i class="fas fa-lock"></i> <i>Bị giới hạn: Phân công chăm sóc & Quản lý nhân sự.</i></li>
-            </ul>
+    <div class="info-card">
+        <div class="info-text">
+            <h2><i class="fa-solid fa-circle-info"></i> Giới Thiệu Phiên Bản 2026</h2>
+            <p>Hệ thống <b>QuanLyCSKH</b> được nâng cấp toàn diện với giao diện hiện đại, tốc độ xử lý vượt trội. Đây là giải pháp công nghệ số 1 giúp doanh nghiệp tối ưu hóa quy trình tương tác khách hàng và gia tăng doanh số.</p>
+            <p>
+                <b>Phiên bản:</b> 2026.1.0 (Premium) | 
+                <span class="highlight-text">Phát triển bởi: HUYMINH</span>
+            </p>
         </div>
     </div>
 
-    <div class="glass-card">
-        <div class="section-title"><i class="fas fa-layer-group"></i> NGHIỆP VỤ CHI TIẾT</div>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-            <div>
-                <h4 style="color: var(--primary);"><i class="fas fa-database"></i> DỮ LIỆU</h4>
-                <p style="font-size: 0.9rem;">Quản lý tập trung Nhân viên, Khách hàng, Sản phẩm và Hóa đơn chi tiết một cách khoa học.</p>
+    <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.2em; color: var(--dark-color);">
+        <i class="fa-solid fa-key" style="color: #f1c40f;"></i> BẢNG PHÂN QUYỀN TRUY CẬP
+    </h2>
+
+    <div class="roles">
+        <div class="role-box">
+            <div class="role-header admin-head">
+                <i class="fa-solid fa-user-shield"></i> QUẢN TRỊ VIÊN
             </div>
-            <div>
-                <h4 style="color: var(--primary);"><i class="fas fa-chart-line"></i> BÁO CÁO</h4>
-                <p style="font-size: 0.9rem;">Hệ thống biểu đồ hiển thị % hiệu quả (Pie Chart) giúp đánh giá thị trường trực quan.</p>
+            <div class="role-content">
+                <p><i>Quyền lực tối cao, điều hành toàn bộ hệ thống:</i></p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Quản lý Nhân viên & Giao việc (Phân công)</li>
+                    <li><i class="fa-solid fa-check"></i> Kiểm soát Khách hàng & Sản phẩm</li>
+                    <li><i class="fa-solid fa-check"></i> Duyệt Hóa đơn & Chi tiết hóa đơn</li>
+                    <li><i class="fa-solid fa-check"></i> Xem Báo cáo Sinh nhật khách hàng</li>
+                    <li><i class="fa-solid fa-check"></i> Phân tích Hiệu quả & Năng suất (Pie Chart)</li>
+                    <li><i class="fa-solid fa-check"></i> Nhập/Xuất toàn bộ dữ liệu Excel/PDF</li>
+                </ul>
             </div>
-            <div>
-                <h4 style="color: var(--primary);"><i class="fas fa-file-export"></i> TIỆN ÍCH</h4>
-                <p style="font-size: 0.9rem;">Hỗ trợ tìm kiếm đa năng và xuất báo cáo PDF/Excel đạt chuẩn văn phòng chuyên nghiệp.</p>
+        </div>
+
+        <div class="role-box">
+            <div class="role-header staff-head">
+                <i class="fa-solid fa-user-tie"></i> NHÂN VIÊN
+            </div>
+            <div class="role-content">
+                <p><i>Thực thi nghiệp vụ, chuyên viên tư vấn:</i></p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Thao tác Khách hàng & Sản phẩm</li>
+                    <li><i class="fa-solid fa-check"></i> Lập Hóa đơn & Chi tiết hóa đơn</li>
+                    <li><i class="fa-solid fa-check"></i> Xem Báo cáo thống kê cơ bản</li>
+                    <li><i class="fa-solid fa-xmark"></i> Không có quyền Phân công chăm sóc</li>
+                    <li><i class="fa-solid fa-xmark"></i> Không có quyền Quản lý nhân sự</li>
+                    <li><i class="fa-solid fa-lock"></i> Giới hạn một số chức năng quản trị</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="features">
+        <h2><i class="fa-solid fa-star" style="color: #f1c40f;"></i> TÍNH NĂNG NỔI BẬT</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <h3>Tìm Kiếm Thông Minh</h3>
+                <p>Tra cứu dữ liệu siêu tốc độ, lọc thông tin khách hàng cực kỳ chuẩn xác.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-chart-pie"></i>
+                <h3>Thống Kê Đỉnh Cao</h3>
+                <p>Tích hợp biểu đồ trực quan, theo dõi % hiệu quả chăm sóc theo thời gian thực.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-file-export"></i>
+                <h3>Xuất Báo Cáo Xịn</h3>
+                <p>Hỗ trợ kết xuất file PDF và Excel đẹp mắt, chuyên nghiệp cho mọi cuộc họp.</p>
             </div>
         </div>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 HUYMINH - ALL RIGHTS RESERVED</p>
-    <p>VERSION 4.0 - PREMIUM MANUAL</p>
+    <div class="dev-badge"><i class="fa-solid fa-code"></i> DESIGNED BY HUYMINH</div>
+    <p>&copy; 2026 Phần mềm QuanLyCSKH. All rights reserved.</p>
+    <p>Khoa CNTT - Đại học An Giang (fit.agu.edu.vn)</p>
 </footer>
 
 </body>
